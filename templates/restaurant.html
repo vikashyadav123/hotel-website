@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Restaurant - The Pristine Palace{% endblock %}
+{% block content %}
+<section class="page-hero" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600')">
+    <div class="page-hero-overlay">
+        <p class="section-sub" style="color:#d4af37">Culinary Excellence</p>
+        <h1>The Palace <em>Kitchen</em></h1>
+        <p>A royal feast for every palate</p>
+    </div>
+</section>
+<section class="restaurant-section">
+    <div class="section-header">
+        <p class="section-sub">Our Restaurants</p>
+        <h2>Dining <em>Experiences</em></h2>
+    </div>
+    <div class="dining-grid">
+        <div class="dining-card">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600" alt="Main Restaurant">
+            <div class="dining-info">
+                <h3>The Grand Darbar</h3>
+                <p>Our signature restaurant serving authentic Awadhi cuisine and contemporary Indian dishes. Open for breakfast, lunch, and dinner.</p>
+                <div class="dining-details">
+                    <span><i class="fas fa-clock"></i> 7 AM – 11 PM</span>
+                    <span><i class="fas fa-utensils"></i> Indian & Continental</span>
+                </div>
+            </div>
+        </div>
+        <div class="dining-card">
+            <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600" alt="Rooftop Bar">
+            <div class="dining-info">
+                <h3>Ganga View Rooftop</h3>
+                <p>Dine under the stars with panoramic views of the Ganges. Specializing in grilled delicacies and signature cocktails.</p>
+                <div class="dining-details">
+                    <span><i class="fas fa-clock"></i> 6 PM – 12 AM</span>
+                    <span><i class="fas fa-glass-cheers"></i> Bar & Grill</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="menu-section">
+        <div class="section-header">
+            <p class="section-sub">Taste of Royalty</p>
+            <h2>Chef's <em>Specialties</em></h2>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-item"><span class="menu-name">Dum Biryani Royale</span><span class="menu-price">₹850</span></div>
+            <div class="menu-item"><span class="menu-name">Ganges Prawns</span><span class="menu-price">₹1,200</span></div>
+            <div class="menu-item"><span class="menu-name">Palace Dal Makhani</span><span class="menu-price">₹450</span></div>
+            <div class="menu-item"><span class="menu-name">Tandoori Platter</span><span class="menu-price">₹1,500</span></div>
+            <div class="menu-item"><span class="menu-name">Shahi Paneer</span><span class="menu-price">₹550</span></div>
+            <div class="menu-item"><span class="menu-name">Malai Kofta</span><span class="menu-price">₹480</span></div>
+        </div>
+    </section>
+</section>
+{% endblock %}

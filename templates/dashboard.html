@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}My Dashboard - The Pristine Palace{% endblock %}
+{% block content %}
+<section class="dashboard-section">
+    <div class="dashboard-header">
+        <h1>Welcome, <em>{{ user }}</em></h1>
+        <p>Manage your bookings and profile</p>
+        <a href="/book" class="btn-gold">+ New Booking</a>
+    </div>
+    <div class="dashboard-content">
+        <h2>My Bookings</h2>
+        {% if bookings %}
+            <div class="bookings-list">
+                {% for b in bookings %}
+                <div class="booking-card">
+                    <div class="booking-icon">🏰</div>
+                    <div class="booking-details">
+                        <h3>{{ b.room }}</h3>
+                        <p><i class="fas fa-calendar-check"></i> Check-in: <strong>{{ b.checkin }}</strong></p>
+                        <p><i class="fas fa-calendar-times"></i> Check-out: <strong>{{ b.checkout }}</strong></p>
+                        <p><i class="fas fa-users"></i> Guests: <strong>{{ b.guests }}</strong></p>
+                        {% if b.requests %}
+                        <p><i class="fas fa-comment"></i> Requests: {{ b.requests }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="booking-status">
+                        <span class="status-badge confirmed">Confirmed</span>
+                        <small>Booked on {{ b.date }}</small>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-bookings">
+                <div class="no-bookings-icon">🏨</div>
+                <h3>No bookings yet</h3>
+                <p>Start your royal journey today!</p>
+                <a href="/book" class="btn-gold">Book Now</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

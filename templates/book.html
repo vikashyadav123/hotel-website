@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}Book Your Stay - The Pristine Palace{% endblock %}
+{% block content %}
+<section class="book-section">
+    <div class="book-hero">
+        <h1>Book Your <em>Royal Stay</em></h1>
+        <p>Fill in the details below and we'll confirm your reservation</p>
+    </div>
+    <div class="book-container">
+        <form method="POST" class="book-form">
+            <div class="book-grid">
+                <div class="form-group">
+                    <label><i class="fas fa-bed"></i> Room Type</label>
+                    <select name="room" required>
+                        <option value="Deluxe Room" {% if selected_room == 'Deluxe Room' %}selected{% endif %}>Deluxe Room — ₹4,999/night</option>
+                        <option value="Palace Suite" {% if selected_room == 'Palace Suite' %}selected{% endif %}>Palace Suite — ₹9,999/night</option>
+                        <option value="Royal Penthouse" {% if selected_room == 'Royal Penthouse' %}selected{% endif %}>Royal Penthouse — ₹19,999/night</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-users"></i> Number of Guests</label>
+                    <select name="guests" required>
+                        <option>1 Guest</option>
+                        <option>2 Guests</option>
+                        <option>3 Guests</option>
+                        <option>4 Guests</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-calendar-check"></i> Check-in Date</label>
+                    <input type="date" name="checkin" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-calendar-times"></i> Check-out Date</label>
+                    <input type="date" name="checkout" required>
+                </div>
+                <div class="form-group full-width">
+                    <label><i class="fas fa-comment"></i> Special Requests</label>
+                    <textarea name="requests" placeholder="Any special requests? (e.g. early check-in, anniversary decoration, dietary requirements)"></textarea>
+                </div>
+            </div>
+            <div class="book-summary">
+                <h3>Booking Summary</h3>
+                <p>Logged in as: <strong>{{ user }}</strong></p>
+                <p>A confirmation will be sent to your registered email.</p>
+                <button type="submit" class="btn-gold-lg">Confirm Booking <i class="fas fa-check"></i></button>
+            </div>
+        </form>
+        <div class="book-info">
+            <h3>Why Book Direct?</h3>
+            <ul>
+                <li><i class="fas fa-check"></i> Best Rate Guaranteed</li>
+                <li><i class="fas fa-check"></i> Free Welcome Drink</li>
+                <li><i class="fas fa-check"></i> Complimentary Ganga Aarti</li>
+                <li><i class="fas fa-check"></i> Free WiFi</li>
+                <li><i class="fas fa-check"></i> Flexible Cancellation</li>
+                <li><i class="fas fa-check"></i> 24/7 Concierge</li>
+            </ul>
+            <div class="book-contact">
+                <p>Need help? Call us</p>
+                <a href="tel:+919876543210" class="phone-link">+91 98765 43210</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

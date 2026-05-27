@@ -1,53 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Rooms - The Pristine Palace</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-
-    <nav>
-        <div class="logo">🏰 The Pristine Palace</div>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/rooms">Rooms</a></li>
-            <li><a href="/contact">Contact</a></li>
-        </ul>
-    </nav>
-
-    <section class="rooms-hero">
-        <h1>Our Rooms & Suites</h1>
-        <p>Every room tells a story of luxury</p>
-    </section>
-
-    <section class="rooms-grid">
-        <div class="room-card">
-            <div class="room-img">🛏️</div>
-            <h3>Deluxe Room</h3>
-            <p>Elegant room with city view, king-size bed, and modern amenities.</p>
-            <p class="price">₹4,999 / night</p>
-            <a href="/contact" class="btn">Book Now</a>
+{% extends 'base.html' %}
+{% block title %}Rooms & Suites - The Pristine Palace{% endblock %}
+{% block content %}
+<section class="page-hero" style="background-image: url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600')">
+    <div class="page-hero-overlay">
+        <p class="section-sub" style="color:#d4af37">Accommodations</p>
+        <h1>Rooms & <em>Suites</em></h1>
+        <p>Every room is a palace in itself</p>
+    </div>
+</section>
+<section class="rooms-full-section">
+    <div class="room-full-card">
+        <div class="room-full-img">
+            <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800" alt="Deluxe Room">
         </div>
-        <div class="room-card">
-            <div class="room-img">🏰</div>
-            <h3>Palace Suite</h3>
-            <p>Spacious suite with Ganges view, private balcony, and royal décor.</p>
-            <p class="price">₹9,999 / night</p>
-            <a href="/contact" class="btn">Book Now</a>
+        <div class="room-full-info">
+            <p class="room-type-label">Standard</p>
+            <h2>Deluxe Room</h2>
+            <p>Our Deluxe Rooms offer a perfect blend of comfort and elegance. Each room features a king-size bed, modern en-suite bathroom, and stunning city views. Spanning 45 sqm, these rooms are thoughtfully designed with royal touches.</p>
+            <div class="room-specs">
+                <span><i class="fas fa-ruler-combined"></i> 45 sqm</span>
+                <span><i class="fas fa-users"></i> 2 Guests</span>
+                <span><i class="fas fa-bed"></i> King Bed</span>
+                <span><i class="fas fa-eye"></i> City View</span>
+            </div>
+            <div class="room-amenities-full">
+                <span><i class="fas fa-wifi"></i> High-Speed WiFi</span>
+                <span><i class="fas fa-snowflake"></i> Air Conditioning</span>
+                <span><i class="fas fa-tv"></i> 55" Smart TV</span>
+                <span><i class="fas fa-coffee"></i> Coffee Machine</span>
+                <span><i class="fas fa-bath"></i> Rain Shower</span>
+                <span><i class="fas fa-concierge-bell"></i> Room Service</span>
+            </div>
+            <div class="room-price-row">
+                <span class="big-price">₹4,999 <small>/night</small></span>
+                <a href="/book?room=Deluxe Room" class="btn-gold">Book This Room</a>
+            </div>
         </div>
-        <div class="room-card">
-            <div class="room-img">👑</div>
-            <h3>Royal Penthouse</h3>
-            <p>Ultimate luxury with panoramic views, private pool, and butler service.</p>
-            <p class="price">₹19,999 / night</p>
-            <a href="/contact" class="btn">Book Now</a>
+    </div>
+    <div class="room-full-card reverse">
+        <div class="room-full-img">
+            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800" alt="Palace Suite">
+            <div class="popular-tag">Most Popular</div>
         </div>
-    </section>
-
-    <footer>
-        <p>© 2026 The Pristine Palace, Varanasi | <a href="https://www.thepristinepalace.com">www.thepristinepalace.com</a></p>
-    </footer>
-
-</body>
-</html>
+        <div class="room-full-info">
+            <p class="room-type-label">Suite</p>
+            <h2>Palace Suite</h2>
+            <p>The Palace Suite is a masterpiece of luxury living. With sweeping views of the sacred Ganges, a private balcony for sunrise viewing, and royal décor, this 80 sqm suite redefines the meaning of opulence.</p>
+            <div class="room-specs">
+                <span><i class="fas fa-ruler-combined"></i> 80 sqm</span>
+                <span><i class="fas fa-users"></i> 2 Guests</span>
+                <span><i class="fas fa-bed"></i> King Bed</span>
+                <span><i class="fas fa-water"></i> Ganges View</span>
+            </div>
+            <div class="room-amenities-full">
+                <span><i class="fas fa-hot-tub"></i> Private Jacuzzi</span>
+                <span><i class="fas fa-concierge-bell"></i> Butler Service</span>
+                <span><i class="fas fa-spa"></i> Spa Access</span>
+                <span><i class="fas fa-glass-cheers"></i> Minibar</span>
+                <span><i class="fas fa-car"></i> Airport Transfer</span>
+                <span><i class="fas fa-wifi"></i> Fiber WiFi</span>
+            </div>
+            <div class="room-price-row">
+                <span class="big-price">₹9,999 <small>/night</small></span>
+                <a href="/book?room=Palace Suite" class="btn-gold">Book This Room</a>
+            </div>
+        </div>
+    </div>
+    <div class="room-full-card">
+        <div class="room-full-img">
+            <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800" alt="Royal Penthouse">
+        </div>
+        <div class="room-full-info">
+            <p class="room-type-label">Penthouse</p>
+            <h2>Royal Penthouse</h2>
+            <p>The crown jewel of The Pristine Palace. This 150 sqm penthouse offers the ultimate luxury experience with a private rooftop pool, 360° panoramic views, dedicated butler, and access to every hotel facility. The Varanasi experience at its finest.</p>
+            <div class="room-specs">
+                <span><i class="fas fa-ruler-combined"></i> 150 sqm</span>
+                <span><i class="fas fa-users"></i> 4 Guests</span>
+                <span><i class="fas fa-bed"></i> 2 King Beds</span>
+                <span><i class="fas fa-swimming-pool"></i> Private Pool</span>
+            </div>
+            <div class="room-amenities-full">
+                <span><i class="fas fa-swimming-pool"></i> Private Pool</span>
+                <span><i class="fas fa-concierge-bell"></i> 24/7 Butler</span>
+                <span><i class="fas fa-helicopter"></i> Helipad Access</span>
+                <span><i class="fas fa-wine-glass"></i> Premium Bar</span>
+                <span><i class="fas fa-spa"></i> In-Room Spa</span>
+                <span><i class="fas fa-car"></i> Limo Transfer</span>
+            </div>
+            <div class="room-price-row">
+                <span class="big-price">₹19,999 <small>/night</small></span>
+                <a href="/book?room=Royal Penthouse" class="btn-gold">Book This Room</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

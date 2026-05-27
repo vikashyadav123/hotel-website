@@ -1,56 +1,256 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Pristine Palace - Varanasi</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}The Pristine Palace - Luxury Hotel Varanasi{% endblock %}
+{% block content %}
 
-    <!-- NAVBAR -->
-    <nav>
-        <div class="logo">🏰 The Pristine Palace</div>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/rooms">Rooms</a></li>
-            <li><a href="/contact">Contact</a></li>
-        </ul>
-    </nav>
-
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="hero-text">
-            <h1>Welcome to The Pristine Palace</h1>
-            <p>Experience royal luxury in the heart of Varanasi</p>
-            <a href="/rooms" class="btn">Explore Rooms</a>
-            <a href="/contact" class="btn btn-outline">Book Now</a>
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <p class="hero-tagline">Welcome to Varanasi's Finest</p>
+        <h1 class="hero-title">The Pristine<br><em>Palace</em></h1>
+        <p class="hero-subtitle">Where royal heritage meets timeless luxury on the banks of the sacred Ganges</p>
+        <div class="hero-btns">
+            <a href="/rooms" class="btn-gold">Explore Rooms</a>
+            <a href="/book" class="btn-outline-white">Book Now</a>
         </div>
-    </section>
+    </div>
+    <div class="hero-scroll">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+    </div>
+    <div class="hero-stats">
+        <div class="stat"><span>50+</span><p>Luxury Rooms</p></div>
+        <div class="stat"><span>5★</span><p>Rating</p></div>
+        <div class="stat"><span>10k+</span><p>Happy Guests</p></div>
+        <div class="stat"><span>24/7</span><p>Concierge</p></div>
+    </div>
+</section>
 
-    <!-- ABOUT -->
-    <section class="about">
-        <h2>About Us</h2>
-        <p>The Pristine Palace is Varanasi's premier luxury hotel, blending royal heritage with modern comfort. Located near the sacred Ganges, we offer an unforgettable experience of spirituality and elegance.</p>
-    </section>
+<!-- BOOKING QUICK FORM -->
+<section class="quick-book">
+    <div class="quick-book-inner">
+        <h3>Check Availability</h3>
+        <form action="/book" method="GET" class="quick-form">
+            <div class="qf-field">
+                <label>Check In</label>
+                <input type="date" name="checkin" required>
+            </div>
+            <div class="qf-field">
+                <label>Check Out</label>
+                <input type="date" name="checkout" required>
+            </div>
+            <div class="qf-field">
+                <label>Room Type</label>
+                <select name="room">
+                    <option>Deluxe Room</option>
+                    <option>Palace Suite</option>
+                    <option>Royal Penthouse</option>
+                </select>
+            </div>
+            <div class="qf-field">
+                <label>Guests</label>
+                <select name="guests">
+                    <option>1 Guest</option>
+                    <option>2 Guests</option>
+                    <option>3 Guests</option>
+                    <option>4 Guests</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-gold">Check Now</button>
+        </form>
+    </div>
+</section>
 
-    <!-- AMENITIES -->
-    <section class="amenities">
-        <h2>Our Amenities</h2>
-        <div class="amenity-grid">
-            <div class="amenity-card">🍽️<h3>Fine Dining</h3><p>Authentic Indian & Continental cuisine</p></div>
-            <div class="amenity-card">🏊<h3>Swimming Pool</h3><p>Rooftop pool with Ganges view</p></div>
-            <div class="amenity-card">💆<h3>Spa & Wellness</h3><p>Traditional Ayurvedic treatments</p></div>
-            <div class="amenity-card">🚗<h3>Free Parking</h3><p>Secure 24/7 parking facility</p></div>
-            <div class="amenity-card">📶<h3>Free WiFi</h3><p>High-speed internet throughout</p></div>
-            <div class="amenity-card">🛕<h3>Temple Tours</h3><p>Guided Varanasi heritage tours</p></div>
+<!-- ABOUT -->
+<section class="about-section">
+    <div class="about-img">
+        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800" alt="Hotel">
+        <div class="about-badge">
+            <span>Est.</span>
+            <span class="year">2024</span>
         </div>
-    </section>
+    </div>
+    <div class="about-text">
+        <p class="section-sub">Our Story</p>
+        <h2>A Legacy of <em>Luxury</em></h2>
+        <p>Nestled on the sacred banks of the Ganges, The Pristine Palace is Varanasi's premier luxury destination. We blend centuries-old royal architecture with contemporary comforts to create an experience unlike any other.</p>
+        <p>Every corner of our hotel tells a story — from the hand-carved marble corridors to the rooftop infinity pool overlooking the ancient ghats.</p>
+        <div class="about-features">
+            <div><i class="fas fa-award"></i><span>Award Winning Service</span></div>
+            <div><i class="fas fa-leaf"></i><span>Eco-Friendly Property</span></div>
+            <div><i class="fas fa-utensils"></i><span>World Class Dining</span></div>
+        </div>
+        <a href="/gallery" class="btn-gold">View Gallery</a>
+    </div>
+</section>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>© 2026 The Pristine Palace, Varanasi | <a href="https://www.thepristinepalace.com">www.thepristinepalace.com</a></p>
-    </footer>
+<!-- ROOMS -->
+<section class="rooms-section">
+    <div class="section-header">
+        <p class="section-sub">Accommodations</p>
+        <h2>Rooms & <em>Suites</em></h2>
+    </div>
+    <div class="rooms-grid">
+        <div class="room-card">
+            <div class="room-img-wrap">
+                <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600" alt="Deluxe Room">
+                <div class="room-overlay">
+                    <a href="/book?room=Deluxe Room" class="btn-gold">Book Now</a>
+                </div>
+            </div>
+            <div class="room-info">
+                <div class="room-top">
+                    <h3>Deluxe Room</h3>
+                    <span class="room-price">₹4,999<small>/night</small></span>
+                </div>
+                <p>King-size bed, city view, modern amenities, 45 sqm</p>
+                <div class="room-amenities">
+                    <span><i class="fas fa-wifi"></i> WiFi</span>
+                    <span><i class="fas fa-snowflake"></i> AC</span>
+                    <span><i class="fas fa-tv"></i> TV</span>
+                    <span><i class="fas fa-coffee"></i> Breakfast</span>
+                </div>
+            </div>
+        </div>
+        <div class="room-card featured">
+            <div class="room-badge">Most Popular</div>
+            <div class="room-img-wrap">
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600" alt="Palace Suite">
+                <div class="room-overlay">
+                    <a href="/book?room=Palace Suite" class="btn-gold">Book Now</a>
+                </div>
+            </div>
+            <div class="room-info">
+                <div class="room-top">
+                    <h3>Palace Suite</h3>
+                    <span class="room-price">₹9,999<small>/night</small></span>
+                </div>
+                <p>Ganges view, private balcony, royal décor, 80 sqm</p>
+                <div class="room-amenities">
+                    <span><i class="fas fa-wifi"></i> WiFi</span>
+                    <span><i class="fas fa-hot-tub"></i> Jacuzzi</span>
+                    <span><i class="fas fa-concierge-bell"></i> Butler</span>
+                    <span><i class="fas fa-spa"></i> Spa</span>
+                </div>
+            </div>
+        </div>
+        <div class="room-card">
+            <div class="room-img-wrap">
+                <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600" alt="Royal Penthouse">
+                <div class="room-overlay">
+                    <a href="/book?room=Royal Penthouse" class="btn-gold">Book Now</a>
+                </div>
+            </div>
+            <div class="room-info">
+                <div class="room-top">
+                    <h3>Royal Penthouse</h3>
+                    <span class="room-price">₹19,999<small>/night</small></span>
+                </div>
+                <p>Panoramic views, private pool, butler service, 150 sqm</p>
+                <div class="room-amenities">
+                    <span><i class="fas fa-swimming-pool"></i> Pool</span>
+                    <span><i class="fas fa-car"></i> Transfer</span>
+                    <span><i class="fas fa-glass-cheers"></i> Bar</span>
+                    <span><i class="fas fa-concierge-bell"></i> 24/7</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section-footer">
+        <a href="/rooms" class="btn-outline-dark">View All Rooms</a>
+    </div>
+</section>
 
-</body>
-</html>
+<!-- AMENITIES -->
+<section class="amenities-section">
+    <div class="section-header light">
+        <p class="section-sub">What We Offer</p>
+        <h2>World-Class <em>Amenities</em></h2>
+    </div>
+    <div class="amenities-grid">
+        <div class="amenity-item">
+            <div class="amenity-icon">🍽️</div>
+            <h3>Fine Dining</h3>
+            <p>Authentic Indian & Continental cuisine by award-winning chefs</p>
+        </div>
+        <div class="amenity-item">
+            <div class="amenity-icon">🏊</div>
+            <h3>Infinity Pool</h3>
+            <p>Rooftop pool with breathtaking views of the Ganges ghats</p>
+        </div>
+        <div class="amenity-item">
+            <div class="amenity-icon">💆</div>
+            <h3>Royal Spa</h3>
+            <p>Traditional Ayurvedic treatments and modern wellness therapies</p>
+        </div>
+        <div class="amenity-item">
+            <div class="amenity-icon">🛕</div>
+            <h3>Temple Tours</h3>
+            <p>Guided spiritual tours of Varanasi's sacred temples and ghats</p>
+        </div>
+        <div class="amenity-item">
+            <div class="amenity-icon">🎭</div>
+            <h3>Cultural Events</h3>
+            <p>Evening Ganga Aarti experiences and classical music performances</p>
+        </div>
+        <div class="amenity-item">
+            <div class="amenity-icon">🚁</div>
+            <h3>Helipad</h3>
+            <p>Private helicopter transfers and aerial city tours available</p>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+    <div class="section-header">
+        <p class="section-sub">Guest Reviews</p>
+        <h2>What Our Guests <em>Say</em></h2>
+    </div>
+    <div class="testimonials-grid">
+        <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"Absolutely breathtaking experience. The view of the Ganges from our suite was magical. Staff was incredibly attentive and the food was exceptional."</p>
+            <div class="reviewer">
+                <div class="reviewer-avatar">RK</div>
+                <div>
+                    <strong>Rahul Kapoor</strong>
+                    <span>Mumbai</span>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-card featured">
+            <div class="stars">★★★★★</div>
+            <p>"The Royal Penthouse was worth every penny. Private pool, butler service, and the sunrise over the ghats — a memory I'll treasure forever. Truly 5-star."</p>
+            <div class="reviewer">
+                <div class="reviewer-avatar">PS</div>
+                <div>
+                    <strong>Priya Sharma</strong>
+                    <span>Delhi</span>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"The temple tour arranged by the concierge was spectacular. Watching the Ganga Aarti from a private boat was an experience I'll never forget."</p>
+            <div class="reviewer">
+                <div class="reviewer-avatar">AJ</div>
+                <div>
+                    <strong>Arjun Joshi</strong>
+                    <span>Bangalore</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="cta-content">
+        <h2>Ready for a Royal Experience?</h2>
+        <p>Book your stay today and receive complimentary Ganga Aarti experience</p>
+        <a href="/book" class="btn-gold-lg">Book Your Stay Now</a>
+    </div>
+</section>
+
+{% endblock %}

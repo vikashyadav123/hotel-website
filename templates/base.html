@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}The Pristine Palace{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">
+            <span class="logo-icon">⚜</span>
+            <div class="logo-text">
+                <span class="logo-main">The Pristine Palace</span>
+                <span class="logo-sub">Varanasi • Est. 2024</span>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/rooms">Rooms</a></li>
+            <li><a href="/restaurant">Restaurant</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+        <div class="nav-auth">
+            {% if user %}
+                <div class="user-menu">
+                    <span class="user-greeting">👤 {{ user }}</span>
+                    <div class="user-dropdown">
+                        <a href="/dashboard"><i class="fas fa-tachometer-alt"></i> My Bookings</a>
+                        <a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="/login" class="btn-nav-login">Login</a>
+                <a href="/signup" class="btn-nav-signup">Sign Up</a>
+            {% endif %}
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/">Home</a>
+        <a href="/rooms">Rooms</a>
+        <a href="/restaurant">Restaurant</a>
+        <a href="/gallery">Gallery</a>
+        <a href="/contact">Contact</a>
+        {% if user %}
+            <a href="/dashboard">My Bookings</a>
+            <a href="/logout">Logout</a>
+        {% else %}
+            <a href="/login">Login</a>
+            <a href="/signup">Sign Up</a>
+        {% endif %}
+    </div>
+</nav>
+
+<!-- FLASH MESSAGES -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">
+                {{ message }}
+                <span onclick="this.parentElement.remove()">✕</span>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+{% block content %}{% endblock %}
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-top">
+        <div class="footer-brand">
+            <h3>⚜ The Pristine Palace</h3>
+            <p>Experience royal luxury in the heart of Varanasi, where ancient spirituality meets modern elegance.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/rooms">Rooms & Suites</a></li>
+                <li><a href="/restaurant">Restaurant</a></li>
+                <li><a href="/gallery">Gallery</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>Services</h4>
+            <ul>
+                <li><a href="#">Spa & Wellness</a></li>
+                <li><a href="#">Temple Tours</a></li>
+                <li><a href="#">Airport Transfer</a></li>
+                <li><a href="#">Event Hosting</a></li>
+                <li><a href="#">Concierge</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Contact</h4>
+            <p><i class="fas fa-map-marker-alt"></i> Assi Ghat Road, Varanasi, UP 221005</p>
+            <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+            <p><i class="fas fa-envelope"></i> stay@thepristinepalace.com</p>
+            <p><i class="fas fa-clock"></i> 24/7 Front Desk</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 The Pristine Palace, Varanasi. All Rights Reserved.</p>
+        <p>Designed with ❤ for royal hospitality</p>
+    </div>
+</footer>
+
+<script>
+function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('active');
+}
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+setTimeout(() => {
+    document.querySelectorAll('.flash').forEach(f => f.remove());
+}, 4000);
+</script>
+</body>
+</html>

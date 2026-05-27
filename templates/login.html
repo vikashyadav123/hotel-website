@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Login - The Pristine Palace{% endblock %}
+{% block content %}
+<section class="auth-section">
+    <div class="auth-image">
+        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800" alt="Hotel">
+        <div class="auth-image-overlay">
+            <h2>⚜ The Pristine Palace</h2>
+            <p>Your royal experience awaits</p>
+        </div>
+    </div>
+    <div class="auth-form-side">
+        <div class="auth-form-wrap">
+            <h1>Welcome <em>Back</em></h1>
+            <p class="auth-sub">Sign in to manage your bookings</p>
+            <form method="POST" class="auth-form">
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email Address</label>
+                    <input type="email" name="email" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn-auth">Login <i class="fas fa-arrow-right"></i></button>
+            </form>
+            <p class="auth-switch">Don't have an account? <a href="/signup">Sign Up</a></p>
+        </div>
+    </div>
+</section>
+{% endblock %}
