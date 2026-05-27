@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - The Pristine Palace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Montserrat',sans-serif; background:#f5f0e8; color:#3a2e1a; }
+ 
+        /* SIDEBAR */
+        .sidebar { position:fixed; left:0; top:0; bottom:0; width:240px; background:#0f0a03; padding:30px 0; z-index:100; }
+        .sidebar-logo { padding:0 25px 30px; border-bottom:1px solid rgba(201,168,76,0.2); margin-bottom:20px; }
+        .sidebar-logo h2 { font-family:'Cormorant Garamond',serif; color:#c9a84c; font-size:1.2rem; }
+        .sidebar-logo p { color:rgba(255,255,255,0.3); font-size:0.7rem; letter-spacing:2px; text-transform:uppercase; margin-top:3px; }
+        .sidebar-nav a { display:flex; align-items:center; gap:12px; padding:13px 25px; color:rgba(255,255,255,0.6); text-decoration:none; font-size:0.82rem; transition:all 0.2s; }
+        .sidebar-nav a:hover, .sidebar-nav a.active { background:rgba(201,168,76,0.1); color:#c9a84c; border-left:3px solid #c9a84c; }
+        .sidebar-nav i { width:16px; }
+        .sidebar-bottom { position:absolute; bottom:20px; left:0; right:0; padding:0 25px; }
+        .sidebar-bottom a { display:flex; align-items:center; gap:10px; color:rgba(255,255,255,0.4); text-decoration:none; font-size:0.8rem; }
+        .sidebar-bottom a:hover { color:#c9a84c; }
+ 
+        /* MAIN */
+        .main { margin-left:240px; padding:35px; min-height:100vh; }
+        .page-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:35px; }
+        .page-header h1 { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; color:#0f0a03; }
+        .page-header p { color:#7a6a50; font-size:0.85rem; }
+        .date-badge { background:#0f0a03; color:#c9a84c; padding:8px 18px; border-radius:20px; font-size:0.75rem; }
+ 
+        /* STATS */
+        .stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-bottom:35px; }
+        .stat-card { background:#fff; padding:25px; border-radius:8px; border-left:4px solid #c9a84c; box-shadow:0 2px 15px rgba(0,0,0,0.05); }
+        .stat-card .stat-icon { font-size:1.8rem; margin-bottom:10px; }
+        .stat-card .stat-num { font-family:'Cormorant Garamond',serif; font-size:2.5rem; color:#0f0a03; font-weight:600; line-height:1; }
+        .stat-card .stat-label { font-size:0.75rem; color:#7a6a50; letter-spacing:1px; text-transform:uppercase; margin-top:5px; }
+ 
+        /* FLASH */
+        .flash { background:#d4edda; color:#155724; padding:12px 20px; border-radius:5px; margin-bottom:20px; font-size:0.85rem; }
+ 
+        /* TABLES */
+        .section-card { background:#fff; border-radius:8px; box-shadow:0 2px 15px rgba(0,0,0,0.05); margin-bottom:30px; overflow:hidden; }
+        .section-card-header { padding:20px 25px; border-bottom:1px solid #f0e8d5; display:flex; justify-content:space-between; align-items:center; }
+        .section-card-header h2 { font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:#0f0a03; }
+        .badge { background:#fdf6e3; color:#c9a84c; padding:4px 12px; border-radius:20px; font-size:0.75rem; font-weight:600; border:1px solid #c9a84c; }
+        table { width:100%; border-collapse:collapse; }
+        th { background:#faf6ee; padding:12px 20px; text-align:left; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase; color:#7a6a50; font-weight:600; }
+        td { padding:14px 20px; border-bottom:1px solid #f5f0e8; font-size:0.85rem; color:#3a2e1a; vertical-align:middle; }
+        tr:last-child td { border-bottom:none; }
+        tr:hover td { background:#fdf8f0; }
+        .status-confirmed { background:#d4edda; color:#155724; padding:4px 12px; border-radius:20px; font-size:0.72rem; font-weight:600; }
+        .btn-delete { background:#fff0f0; color:#dc3545; border:1px solid #dc3545; padding:5px 12px; border-radius:4px; font-size:0.72rem; text-decoration:none; cursor:pointer; transition:all 0.2s; }
+        .btn-delete:hover { background:#dc3545; color:#fff; }
+        .empty-state { padding:50px; text-align:center; color:#7a6a50; }
+        .empty-state .empty-icon { font-size:2.5rem; margin-bottom:15px; }
+        .room-tag { background:#fdf6e3; color:#c9a84c; padding:3px 10px; border-radius:4px; font-size:0.75rem; font-weight:600; }
+        .user-avatar { width:32px; height:32px; background:#c9a84c; color:#0f0a03; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-weight:700; font-size:0.75rem; margin-right:8px; }
+ 
+        /* ROOMS SUMMARY */
+        .rooms-summary { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; padding:25px; }
+        .room-stat { text-align:center; padding:20px; background:#faf6ee; border-radius:6px; border:1px solid #e8d9bb; }
+        .room-stat h3 { font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:#0f0a03; margin-bottom:5px; }
+        .room-stat .count { font-size:2rem; font-weight:700; color:#c9a84c; }
+ 
+        @media(max-width:1024px) { .stats-grid { grid-template-columns:repeat(2,1fr); } }
+        @media(max-width:768px) { .sidebar { display:none; } .main { margin-left:0; padding:20px; } }
+    </style>
+</head>
+<body>
+ 
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="sidebar-logo">
+        <h2>⚜ Admin Panel</h2>
+        <p>The Pristine Palace</p>
+    </div>
+    <nav class="sidebar-nav">
+        <a href="/admin/dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="#bookings"><i class="fas fa-calendar-check"></i> Bookings</a>
+        <a href="#users"><i class="fas fa-users"></i> Users</a>
+        <a href="/" target="_blank"><i class="fas fa-external-link-alt"></i> View Website</a>
+    </nav>
+    <div class="sidebar-bottom">
+        <a href="/admin/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+</div>
+ 
+<!-- MAIN CONTENT -->
+<div class="main">
+ 
+    <!-- HEADER -->
+    <div class="page-header">
+        <div>
+            <h1>Admin Dashboard</h1>
+            <p>Manage bookings and users for The Pristine Palace</p>
+        </div>
+        <span class="date-badge">⚜ Hotel Admin</span>
+    </div>
+ 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}{% for c, m in messages %}
+            <div class="flash">{{ m }}</div>
+        {% endfor %}{% endif %}
+    {% endwith %}
+ 
+    <!-- STATS -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">📋</div>
+            <div class="stat-num">{{ total_bookings }}</div>
+            <div class="stat-label">Total Bookings</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-num">{{ total_users }}</div>
+            <div class="stat-label">Registered Users</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🏰</div>
+            <div class="stat-num">{{ rooms_count.get('Palace Suite', 0) }}</div>
+            <div class="stat-label">Palace Suite Bookings</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">👑</div>
+            <div class="stat-num">{{ rooms_count.get('Royal Penthouse', 0) }}</div>
+            <div class="stat-label">Penthouse Bookings</div>
+        </div>
+    </div>
+ 
+    <!-- ROOMS SUMMARY -->
+    <div class="section-card" style="margin-bottom:30px;">
+        <div class="section-card-header">
+            <h2>🏨 Bookings by Room Type</h2>
+        </div>
+        <div class="rooms-summary">
+            <div class="room-stat">
+                <h3>Deluxe Room</h3>
+                <div class="count">{{ rooms_count.get('Deluxe Room', 0) }}</div>
+                <small>bookings</small>
+            </div>
+            <div class="room-stat">
+                <h3>Palace Suite</h3>
+                <div class="count">{{ rooms_count.get('Palace Suite', 0) }}</div>
+                <small>bookings</small>
+            </div>
+            <div class="room-stat">
+                <h3>Royal Penthouse</h3>
+                <div class="count">{{ rooms_count.get('Royal Penthouse', 0) }}</div>
+                <small>bookings</small>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- BOOKINGS TABLE -->
+    <div class="section-card" id="bookings">
+        <div class="section-card-header">
+            <h2>📋 All Bookings</h2>
+            <span class="badge">{{ total_bookings }} total</span>
+        </div>
+        {% if bookings %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Guest Name</th>
+                    <th>Email</th>
+                    <th>Room</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Guests</th>
+                    <th>Special Requests</th>
+                    <th>Booked On</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in bookings|reverse %}
+                <tr>
+                    <td><strong>{{ b.name }}</strong></td>
+                    <td>{{ b.email }}</td>
+                    <td><span class="room-tag">{{ b.room }}</span></td>
+                    <td>{{ b.checkin }}</td>
+                    <td>{{ b.checkout }}</td>
+                    <td>{{ b.guests }}</td>
+                    <td>{{ b.requests if b.requests else '—' }}</td>
+                    <td>{{ b.date }}</td>
+                    <td><span class="status-confirmed">✓ Confirmed</span></td>
+                    <td>
+                        {% if b.id %}
+                        <a href="/admin/booking/delete/{{ b.id }}" class="btn-delete" onclick="return confirm('Delete this booking?')">Delete</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <div class="empty-icon">📭</div>
+            <p>No bookings yet. They will appear here when guests book.</p>
+        </div>
+        {% endif %}
+    </div>
+ 
+    <!-- USERS TABLE -->
+    <div class="section-card" id="users">
+        <div class="section-card-header">
+            <h2>👥 Registered Users</h2>
+            <span class="badge">{{ total_users }} users</span>
+        </div>
+        {% if users %}
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email Address</th>
+                    <th>Total Bookings</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for email, info in users.items() %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                        <span class="user-avatar">{{ info.name[0].upper() }}</span>
+                        <strong>{{ info.name }}</strong>
+                    </td>
+                    <td>{{ email }}</td>
+                    <td>
+                        {% set count = bookings|selectattr('email','equalto',email)|list|length %}
+                        {{ count }} booking{{ 's' if count != 1 }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <div class="empty-icon">👤</div>
+            <p>No users registered yet.</p>
+        </div>
+        {% endif %}
+    </div>
+ 
+</div>
+</body>
+</html>
