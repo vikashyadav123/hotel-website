@@ -9,6 +9,10 @@ app.secret_key = 'pristinepalace2026secretkey'
 USERS_FILE = 'users.json'
 BOOKINGS_FILE = 'bookings.json'
 
+# ⚠️ CHANGE THIS PASSWORD!
+ADMIN_USERNAME = 'admin'
+ADMIN_PASSWORD = 'palace2026'
+
 def load_users():
     if os.path.exists(USERS_FILE):
         with open(USERS_FILE) as f:
@@ -93,6 +97,7 @@ def book():
         return redirect(url_for('login'))
     if request.method == 'POST':
         booking = {
+            'id': datetime.now().strftime('%Y%m%d%H%M%S'),
             'name': session['user'],
             'email': session['email'],
             'room': request.form['room'],
@@ -100,6 +105,7 @@ def book():
             'checkout': request.form['checkout'],
             'guests': request.form['guests'],
             'requests': request.form.get('requests', ''),
+            'status': 'Confirmed',
             'date': datetime.now().strftime('%Y-%m-%d %H:%M')
         }
         bookings = load_bookings()
@@ -116,6 +122,56 @@ def dashboard():
         return redirect(url_for('login'))
     bookings = [b for b in load_bookings() if b['email'] == session.get('email')]
     return render_template('dashboard.html', user=session.get('user'), bookings=bookings)
+
+# ===== ADMIN ROUTES =====
+
+@app.route('/admin', methods=['GET', 'POST'])
+def admin_login():
+    if session.get('admin'):
+        return redirect(url_for('admin_dashboard'))
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+            session['admin'] = True
+            return redirect(url_for('admin_dashboard'))
+        flash('Wrong username or password!', 'error')
+    return render_template('admin_login.html')
+
+@app.route('/admin/dashboard')
+def admin_dashboard():
+    if not session.get('admin'):
+        return redirect(url_for('admin_login'))
+    users = load_users()
+    bookings = load_bookings()
+    # Stats
+    total_users = len(users)
+    total_bookings = len(bookings)
+    rooms_count = {}
+    for b in bookings:
+        rooms_count[b['room']] = rooms_count.get(b['room'], 0) + 1
+    return render_template('admin_dashboard.html',
+        users=users,
+        bookings=bookings,
+        total_users=total_users,
+        total_bookings=total_bookings,
+        rooms_count=rooms_count
+    )
+
+@app.route('/admin/booking/delete/<booking_id>')
+def delete_booking(booking_id):
+    if not session.get('admin'):
+        return redirect(url_for('admin_login'))
+    bookings = load_bookings()
+    bookings = [b for b in bookings if b.get('id') != booking_id]
+    save_bookings(bookings)
+    flash('Booking deleted!', 'success')
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/logout')
+def admin_logout():
+    session.pop('admin', None)
+    return redirect(url_for('admin_login'))
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
