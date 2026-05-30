@@ -399,3 +399,18 @@ img { max-width: 100%; display: block; }
     .dining-grid { grid-template-columns: 1fr; }
     .menu-grid { grid-template-columns: 1fr; }
 }
+
+/* ===== MAP SECTION ===== */
+.map-section { padding: 80px 5%; background: var(--cream); }
+.map-header { text-align: center; margin-bottom: 40px; }
+.map-header h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; color: var(--dark); margin-bottom: 10px; }
+.map-address { color: var(--text-light); font-size: 0.95rem; margin-top: 10px; }
+.map-container { border: 3px solid var(--gold); border-radius: 5px; overflow: hidden; margin-bottom: 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+.map-directions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; max-width: 1200px; margin: 0 auto; }
+.direction-card { background: var(--white); padding: 30px 25px; text-align: center; border: 1px solid var(--border); border-radius: 5px; transition: transform 0.3s, border-color 0.3s; }
+.direction-card:hover { transform: translateY(-5px); border-color: var(--gold); }
+.direction-icon { font-size: 2.2rem; margin-bottom: 15px; }
+.direction-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--dark); margin-bottom: 10px; }
+.direction-card p { color: var(--text-light); font-size: 0.85rem; line-height: 1.7; }
+@media(max-width: 768px) { .map-directions { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width: 480px) { .map-directions { grid-template-columns: 1fr; } }
